@@ -8,26 +8,39 @@ from eralchemy2 import render_er
 
 Base = declarative_base()
 
-class Person(Base):
-    __tablename__ = 'person'
-    # Here we define columns for the table person
+class People(Base):
+    __tablename__ = 'People'
+    # Definimos las columnas de la tabla People
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
+    height = Column(Integer, nullable=False)
+    mass = Column(Integer, nullable=False)
+    hair_color = Column(String(250), nullable=False)
+    skin_color = Column(String(250), nullable=False)
+    eye_color = Column(String(250), nullable=False)
+    bith_year = Column(Integer, nullable=False)
+    gender = Column(String(250))
+    homeworld = Column(Integer, ForeignKey('planet.id'))
+    
 
-class Address(Base):
-    __tablename__ = 'address'
-    # Here we define columns for the table address.
-    # Notice that each column is also a normal Python instance attribute.
+class Planet(Base):
+    __tablename__ = 'Planet'
+    # Definimos las columnas de la tabla Planet
     id = Column(Integer, primary_key=True)
-    street_name = Column(String(250))
-    street_number = Column(String(250))
-    post_code = Column(String(250), nullable=False)
-    person_id = Column(Integer, ForeignKey('person.id'))
-    person = relationship(Person)
+    rotation_period = Column(Integer, nullable=False)
+    orbital_period = Column(Integer, nullable=False)
+    diameter = Column(Integer, nullable=False)
+    climate = Column(String(250), nullable=False)
+    gravity = Column(Integer, nullable=False)
+    terrain = Column(String(250), nullable=False)
+    surface_water = Column(Integer, nullable=False)
+    population = Column(Integer, nullable=False)
+
 
     def to_dict(self):
         return {}
+
 
 ## Draw from SQLAlchemy base
 render_er(Base, 'diagram.png')
