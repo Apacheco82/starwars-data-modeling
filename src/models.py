@@ -8,20 +8,7 @@ from eralchemy2 import render_er
 
 Base = declarative_base()
 
-class People(Base):
-    __tablename__ = 'People'
-    # Definimos las columnas de la tabla People
-    # Notice that each column is also a normal Python instance attribute.
-    id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
-    height = Column(Integer, nullable=False)
-    mass = Column(Integer, nullable=False)
-    hair_color = Column(String(250), nullable=False)
-    skin_color = Column(String(250), nullable=False)
-    eye_color = Column(String(250), nullable=False)
-    bith_year = Column(Integer, nullable=False)
-    gender = Column(String(250))
-    homeworld = Column(Integer, ForeignKey('planet.id'))
+
     
 
 class Planet(Base):
@@ -36,6 +23,49 @@ class Planet(Base):
     terrain = Column(String(250), nullable=False)
     surface_water = Column(Integer, nullable=False)
     population = Column(Integer, nullable=False)
+
+class People(Base):
+    __tablename__ = 'People'
+    # Definimos las columnas de la tabla People
+    # Notice that each column is also a normal Python instance attribute.
+    id = Column(Integer, primary_key=True)
+    name = Column(String(250), nullable=False)
+    height = Column(Integer, nullable=False)
+    mass = Column(Integer, nullable=False)
+    hair_color = Column(String(250), nullable=False)
+    skin_color = Column(String(250), nullable=False)
+    eye_color = Column(String(250), nullable=False)
+    bith_year = Column(Integer, nullable=False)
+    gender = Column(String(250))
+    homeworld = Column(Integer, ForeignKey('planet.id'))
+    homeworld = relationship(Planet)
+
+class User(Base):
+    __tablename__ = 'User'
+    # Definimos las columnas de la tabla Planet
+    id = Column(Integer, primary_key=True)
+    user_name = Column(String, nullable=False)
+    password = Column(String, nullable=False)
+    name = Column(Integer, nullable=False)
+    last_name = Column(String(250), nullable=False)
+    email = Column(String(250), nullable=False)
+
+class Fav(Base):
+    __tablename__ = 'Fav'
+    # Definimos las columnas de la tabla Planet
+    id = Column(Integer, primary_key=True)
+    id_user = Column(Integer, ForeignKey('User.id'))
+    user = relationship(User)
+    id_planet = Column(Integer, ForeignKey('Planet.id'))
+    planet = relationship(Planet)
+    id_people = Column(Integer, ForeignKey('People.id'))
+    people = relationship(People)
+
+  
+
+   
+
+
 
 
     def to_dict(self):
