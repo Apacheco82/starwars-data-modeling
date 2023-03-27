@@ -9,8 +9,6 @@ from eralchemy2 import render_er
 Base = declarative_base()
 
 
-    
-
 class Planet(Base):
     __tablename__ = 'Planet'
     # Definimos las columnas de la tabla Planet
@@ -23,6 +21,7 @@ class Planet(Base):
     terrain = Column(String(250), nullable=False)
     surface_water = Column(Integer, nullable=False)
     population = Column(Integer, nullable=False)
+
 
 class People(Base):
     __tablename__ = 'People'
@@ -37,8 +36,9 @@ class People(Base):
     eye_color = Column(String(250), nullable=False)
     bith_year = Column(Integer, nullable=False)
     gender = Column(String(250))
-    homeworld = Column(Integer, ForeignKey('planet.id'))
-    homeworld = relationship(Planet)
+    homeworld_planet = Column(Integer, ForeignKey('planet.id'))
+    planet = relationship(Planet)
+
 
 class User(Base):
     __tablename__ = 'User'
@@ -49,6 +49,7 @@ class User(Base):
     name = Column(Integer, nullable=False)
     last_name = Column(String(250), nullable=False)
     email = Column(String(250), nullable=False)
+
 
 class Fav(Base):
     __tablename__ = 'Fav'
@@ -61,16 +62,10 @@ class Fav(Base):
     id_people = Column(Integer, ForeignKey('People.id'))
     people = relationship(People)
 
-  
-
-   
-
-
-
-
     def to_dict(self):
         return {}
 
 
-## Draw from SQLAlchemy base
+# Draw from SQLAlchemy base
 render_er(Base, 'diagram.png')
+
