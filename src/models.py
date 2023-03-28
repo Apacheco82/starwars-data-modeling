@@ -39,6 +39,31 @@ class People(Base):
     homeworld_planet = Column(Integer, ForeignKey('planet.id'))
     planet = relationship(Planet)
 
+class Vehicle(Base):
+    __tablename__ = "Vehicles"
+    id = Column(Integer, primary_key=True)
+    name = Column(String(250), nullable=False)
+    model = Column(String(250), nullable=False)
+    manufacturer = Column(String(250), nullable=False)
+    vehicle_class = Column(String(250), nullable=False)
+    cost_in_credits = Column(Integer, nullable=False)
+    length = Column(Integer, nullable=False)
+    crew = Column(Integer, nullable=False)
+    passengers = Column(Integer, nullable=False)
+    max_atmosphering_speed = Column(Integer, nullable=False)
+    cargo_capacity = Column(Integer, nullable=False)
+    consumables = Column(Integer)
+    pilots = Column(Integer, ForeignKey('People.id'))
+    pilots = relationship(People)
+
+class Pilots(Base):
+    __tablename__ = "Pilots"
+    id = Column(Integer, primary_key=True)
+    id_people = Column(Integer, ForeignKey('People.id'))
+    people = relationship(People)
+    id_vehicle = Column(Integer, ForeignKey('Vehicle.id'))
+    vehicle = relationship(Vehicle)
+    
 
 class User(Base):
     __tablename__ = 'User'
@@ -61,6 +86,8 @@ class Fav(Base):
     planet = relationship(Planet)
     id_people = Column(Integer, ForeignKey('People.id'))
     people = relationship(People)
+    id_vehicle = Column(Integer, ForeignKey('Vehicle.id'))
+    vehicle = relationship(Vehicle)
 
     def to_dict(self):
         return {}
