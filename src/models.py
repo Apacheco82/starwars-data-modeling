@@ -36,8 +36,8 @@ class People(Base):
     eye_color = Column(String(250), nullable=False)
     bith_year = Column(Integer, nullable=False)
     gender = Column(String(250))
-    homeworld_planet = Column(Integer, ForeignKey('planet.id'))
-    planet = relationship(Planet)
+    homeworld_planet = Column(Integer, ForeignKey(Planet.id))
+    id_planet = relationship(Planet)
 
 class Vehicle(Base):
     __tablename__ = "Vehicles"
@@ -53,15 +53,15 @@ class Vehicle(Base):
     max_atmosphering_speed = Column(Integer, nullable=False)
     cargo_capacity = Column(Integer, nullable=False)
     consumables = Column(Integer)
-    pilots = Column(Integer, ForeignKey('People.id'))
+    pilots = Column(Integer, ForeignKey(People.id))
     pilots = relationship(People)
 
 class Pilots(Base):
     __tablename__ = "Pilots"
     id = Column(Integer, primary_key=True)
-    id_people = Column(Integer, ForeignKey('People.id'))
-    people = relationship(People)
-    id_vehicle = Column(Integer, ForeignKey('Vehicle.id'))
+    id_people = Column(Integer, ForeignKey(People.id))
+    id_people = relationship(People)
+    id_vehicle = Column(Integer, ForeignKey(Vehicle.id))
     vehicle = relationship(Vehicle)
     
 
@@ -80,13 +80,13 @@ class Fav(Base):
     __tablename__ = 'Fav'
     # Definimos las columnas de la tabla Planet
     id = Column(Integer, primary_key=True)
-    id_user = Column(Integer, ForeignKey('User.id'))
+    id_user = Column(Integer, ForeignKey(User.id))
     user = relationship(User)
-    id_planet = Column(Integer, ForeignKey('Planet.id'))
+    id_planet = Column(Integer, ForeignKey(Planet.id))
     planet = relationship(Planet)
-    id_people = Column(Integer, ForeignKey('People.id'))
+    id_people = Column(Integer, ForeignKey(People.id))
     people = relationship(People)
-    id_vehicle = Column(Integer, ForeignKey('Vehicle.id'))
+    id_vehicle = Column(Integer, ForeignKey(Vehicle.id))
     vehicle = relationship(Vehicle)
 
     def to_dict(self):
