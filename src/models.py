@@ -60,7 +60,7 @@ class Pilots(Base):
     __tablename__ = "Pilots"
     id = Column(Integer, primary_key=True)
     id_people = Column(Integer, ForeignKey(People.id))
-    id_people = relationship(People)
+    people = relationship(People)
     id_vehicle = Column(Integer, ForeignKey(Vehicle.id))
     vehicle = relationship(Vehicle)
     
