@@ -37,7 +37,7 @@ class People(Base):
     bith_year = Column(Integer, nullable=False)
     gender = Column(String(250))
     homeworld_planet = Column(Integer, ForeignKey(Planet.id))
-    id_planet = relationship(Planet)
+    planet = relationship(Planet)
 
 class Vehicle(Base):
     __tablename__ = "Vehicles"
@@ -53,7 +53,7 @@ class Vehicle(Base):
     max_atmosphering_speed = Column(Integer, nullable=False)
     cargo_capacity = Column(Integer, nullable=False)
     consumables = Column(Integer)
-    pilots = Column(Integer, ForeignKey(People.id))
+    pilots_id = Column(Integer, ForeignKey(People.id))
     pilots = relationship(People)
 
 class Pilots(Base):
